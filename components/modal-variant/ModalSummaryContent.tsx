@@ -21,7 +21,7 @@ const ModalSummaryContent = ({title}: SummaryProps) => {
        <Card>
             <CardHeader> 
                 <CardTitle>Total number of {title}</CardTitle>
-                <CardDescription>
+                <CardDescription className="text-center flex w-full justify-center">
                   {units ? units.map(item => item.unit_id).length : 0}
                 </CardDescription>
             </CardHeader>

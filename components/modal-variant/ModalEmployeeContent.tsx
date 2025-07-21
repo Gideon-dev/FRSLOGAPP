@@ -19,7 +19,7 @@ const ModalEmployeeContent = ({title}: EmployProps) => {
             <CardHeader> 
                 <CardTitle>Total count for {title}:</CardTitle>
             </CardHeader>
-            <CardDescription>
+            <CardDescription className="text-center w-full flex justify-center">
                 {EmployeeCount}
             </CardDescription>
         </Card>
