@@ -1,19 +1,37 @@
-"use client";
 import { ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { motion } from 'framer-motion'
-import { useState } from "react";
+import { AnimatePresence,motion } from 'framer-motion'
+import { JSX } from "react";
+import { AdminCardVariant } from "@/lib/interface";
+import ModalSummaryContent from "./modal-variant/ModalSummaryContent";
+import ModalEmployeeContent from "./modal-variant/ModalEmployeeContent";
 
 type AdminCardProps ={
   title: string;
-  pointer: number | string; 
+  icon: JSX.Element;
+  variant: AdminCardVariant;
 }
-const AdminCard = ({title, pointer}:AdminCardProps) => {
-   const [open, setOpen] = useState(false)
+
+const AdminCard = ({title, icon, variant}:AdminCardProps) => {
+   
+  const renderModalContent = () => {
+
+    switch (variant) {
+      case 'stats':
+        return ModalSummaryContent ? <ModalSummaryContent title={title} /> : null;
+      case 'employee':
+        return ModalEmployeeContent ? <ModalEmployeeContent title={title} /> : null;
+      default:
+        return <p>No content available</p>
+    }
+  }
+//   console.log('variant:', variant);
+// console.log('ModalSummaryContent:', ModalSummaryContent);
+// console.log('ModalEmployeeContent:', ModalEmployeeContent);
     return(
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog>
         <Card className="w-full max-w-sm">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>{title}</CardTitle>
@@ -23,35 +41,20 @@ const AdminCard = ({title, pointer}:AdminCardProps) => {
               </Button>
             </DialogTrigger>
           </CardHeader>
-          <CardContent className="text-2xl font-bold">{pointer}</CardContent>
+          <CardContent className="text-2xl font-bold">
+            {icon}
+          </CardContent>
         </Card>
   
+      
         <DialogContent className="backdrop-blur-md">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
-            transition={{ duration: 0.3 }}
-          >
-            <DialogHeader>
-              <DialogTitle>{title} Details</DialogTitle>
-              <DialogDescription>
-                {/* {loading ? 'Loading...' : data?.detail} */}
-              </DialogDescription>
-            </DialogHeader>
-  
-            
-            
-            <DialogFooter className="pt-4">
-              <DialogClose asChild>
-                <Button type="button" variant="outline">
-                  Cancel
-                </Button>
-              </DialogClose>
-              <Button>Save</Button>
-            </DialogFooter>
-
-          </motion.div>
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>This is the {title} overall section</DialogDescription>
+          <div>
+            {renderModalContent()}
+          </div>
         </DialogContent>
       </Dialog>
     )

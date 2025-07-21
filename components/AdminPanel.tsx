@@ -1,3 +1,4 @@
+import { IdCardLanyard, LayoutPanelTop } from "lucide-react";
 import AdminCard from "./AdminCard";
 
 const AdminPanel = () =>{
@@ -5,12 +6,14 @@ const AdminPanel = () =>{
         <div className="w-full flex justify-center">
             <div className="space-y-5 w-[80%]">
                 <AdminCard 
-                    pointer="100" 
+                    icon={<LayoutPanelTop/>}
                     title="Total Units"
+                    variant="stats"
                 />
                 <AdminCard 
-                    pointer="200" 
+                    icon= {<IdCardLanyard/>}
                     title="Total Employee"
+                    variant="employee"
                 />
             </div>
         </div>
